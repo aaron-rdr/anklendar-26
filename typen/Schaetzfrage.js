@@ -1,10 +1,11 @@
 export class Schaetzfrage {
-  constructor({ frage, richtig, toleranz, einheit = "", aufloesung = "" }) {
+  constructor({ frage, richtig, toleranz, einheit = "", aufloesung = "", aufloesungBild = "" }) {
     this.frage = frage;
     this.richtig = richtig;
     this.toleranz = toleranz;
     this.einheit = einheit;
     this.aufloesung = aufloesung;
+    this.aufloesungBild = aufloesungBild;
   }
 
   render(container, onFertig) {
@@ -39,8 +40,9 @@ export class Schaetzfrage {
       container.querySelector("#feedback").innerHTML = `
         <div class="feedback">
           <strong>Exakte Zahl: ${this.richtig.toLocaleString("de-DE")} ${this.einheit}</strong>
-          <p style="margin-top: 4px;">Deine Schätzung: ${tipp.toLocaleString("de-DE")} ${this.einheit} (+${punkte} Pkt)</p>
-          ${this.aufloesung ? `<p style="margin-bottom: 0;">${this.aufloesung}</p>` : ""}
+          <p style="margin-top: 4px; margin-bottom: 0;">Deine Schätzung: ${tipp.toLocaleString("de-DE")} ${this.einheit} (+${punkte} Pkt)</p>
+          ${this.aufloesung ? `<p style="margin-top: 6px; margin-bottom: 0;">${this.aufloesung}</p>` : ""}
+          ${this.aufloesungBild ? `<img src="${this.aufloesungBild}" alt="Auflösung" class="feedback-img" />` : ""}
         </div>
       `;
       onFertig(punkte);

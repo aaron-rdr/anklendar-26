@@ -1,18 +1,22 @@
+// Sowohl für Satellitenbilder, als auch für ausgeschnittenen Gegenstand raten geeignet
+
 export class RateFoto {
-  constructor({ frage, bildZoom, bildVoll = null, loesung, tipp = "", aufloesung = "" }) {
+  constructor({ titel = "Bild-Rätsel", frage, bildZoom, bildVoll = null, loesung, tipp = "", aufloesung = "", aufloesungBild = "" }) {
+    this.titel = titel;
     this.frage = frage;
     this.bildZoom = bildZoom;
     this.bildVoll = bildVoll;
     this.loesungen = Array.isArray(loesung) ? loesung : [loesung];
     this.tipp = tipp;
     this.aufloesung = aufloesung;
+    this.aufloesungBild = aufloesungBild;
   }
 
   render(container, onFertig) {
     let tippGenutzt = false;
 
     container.innerHTML = `
-      <h2>Bild-Rätsel</h2>
+      <h2>${this.titel}</h2>
       <p>${this.frage}</p>
       <div class="photo-frame">
         <img id="raetsel-img" src="${this.bildZoom}" alt="Rätselbild" />
@@ -25,7 +29,7 @@ export class RateFoto {
       <div id="feedback"></div>
     `;
 
-    const abschliessen = (punkte, titel) => {
+    const abschliessen = (punkte, statusTitel) => {
       if (this.bildVoll) {
         container.querySelector("#raetsel-img").src = this.bildVoll;
       }
@@ -35,9 +39,10 @@ export class RateFoto {
 
       container.querySelector("#feedback").innerHTML = `
         <div class="feedback">
-          <strong>${titel} (${punkte} Pkt)</strong>
-          <p style="margin-top: 6px;">Lösung: <strong>${this.loesungen[0]}</strong></p>
-          ${this.aufloesung ? `<p style="margin-bottom: 0;">${this.aufloesung}</p>` : ""}
+          <strong>${statusTitel} (${punkte} Pkt)</strong>
+          <p style="margin-top: 6px; margin-bottom: 0;">Lösung: <strong>${this.loesungen[0]}</strong></p>
+          ${this.aufloesung ? `<p style="margin-top: 6px; margin-bottom: 0;">${this.aufloesung}</p>` : ""}
+          ${this.aufloesungBild ? `<img src="${this.aufloesungBild}" alt="Auflösung" class="feedback-img" />` : ""}
         </div>
       `;
       onFertig(punkte);

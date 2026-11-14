@@ -1,10 +1,11 @@
 export class ChatZitat {
-  constructor({ zitat, hinweis = "", optionen = ["Du", "Ich"], richtig, aufloesung = "" }) {
+  constructor({ zitat, hinweis = "", optionen = ["Du", "Ich"], richtig, aufloesung = "", aufloesungBild = "" }) {
     this.zitat = zitat;
     this.hinweis = hinweis;
     this.optionen = optionen;
     this.richtig = richtig;
     this.aufloesung = aufloesung;
+    this.aufloesungBild = aufloesungBild;
   }
 
   render(container, onFertig) {
@@ -13,7 +14,7 @@ export class ChatZitat {
       .join("");
 
     container.innerHTML = `
-      <h2>Von wem war diese WhatsApp-Nachricht?</h2>
+      <h2>Wer hat's geschrieben?</h2>
       ${this.hinweis ? `<p class="muted">${this.hinweis}</p>` : ""}
       <div class="chat-bubble">„${this.zitat}“</div>
       <div id="optionen">${buttonsHtml}</div>
@@ -36,6 +37,7 @@ export class ChatZitat {
           <div class="feedback">
             <strong>${treffer ? "Volltreffer! (+100 Pkt)" : "Knapp daneben! (+25 Pkt)"}</strong>
             ${this.aufloesung ? `<p style="margin-top: 6px; margin-bottom: 0;">${this.aufloesung}</p>` : ""}
+            ${this.aufloesungBild ? `<img src="${this.aufloesungBild}" alt="Auflösung" class="feedback-img" />` : ""}
           </div>
         `;
         onFertig(treffer ? 100 : 25);

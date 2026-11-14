@@ -36,6 +36,25 @@ export const KALENDER = {
     aufloesung: "Ohne geht morgens gar nichts."
   }),
 
+  // Beispiel für ausgeschnittenen Gegenstand -> Originalfoto:
+  8: new RateFoto({
+    titel: "Gegenstand erraten",
+    frage: "Welcher Gegenstand ist hier aus einem unserer Fotos ausgeschnitten?",
+    bildZoom: "bilder/tag8_ausschnitt.png",
+    bildVoll: "bilder/tag8_original.jpg",
+    loesung: ["kaffeetasse", "tasse"],
+    aufloesung: "Stand damals beim Frühstück direkt neben dir!"
+  }),
+
+  // Beispiel für Chat-Zitat mit Screenshot als Auflösungsbild:
+  9: new ChatZitat({
+    zitat: "Ich schwöre, ich verfahre mich nicht.",
+    optionen: ["Du", "Ich"],
+    richtig: 1,
+    aufloesung: "10 Minuten später standen wir auf dem falschen Parkplatz.",
+    aufloesungBild: "bilder/tag9_chat_beweis.jpg"
+  }),
+
   // ... Hier einfach die Blöcke für Tag 8 bis 23 reinkopieren ...
 
   24: new Finale({
