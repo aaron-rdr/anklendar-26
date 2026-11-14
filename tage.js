@@ -1,5 +1,5 @@
 import { ChatZitat } from './typen/ChatZitat.js';
-import { ZoomFoto } from './typen/RateFoto.js';
+import { RateFoto } from './typen/RateFoto.js';
 import { Schaetzfrage } from './typen/Schaetzfrage.js';
 import { Wordle } from './typen/Wordle.js';
 import { Finale } from './typen/Finale.js';
@@ -13,7 +13,7 @@ export const KALENDER = {
     aufloesung: "Spoiler: Es wurden dann doch 25 Minuten."
   }),
 
-  2: new ZoomFoto({
+  2: new RateFoto({
     frage: "Wo waren wir hier unterwegs?",
     bildZoom: "bilder/tag2_zoom.jpg",
     bildVoll: "bilder/tag2_voll.jpg",
