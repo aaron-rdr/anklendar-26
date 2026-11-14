@@ -1,9 +1,10 @@
 export class Wordle {
-  constructor({ hinweis, wort, maxVersuche = 6, aufloesung = "" }) {
+  constructor({ hinweis, wort, maxVersuche = 6, aufloesung = "", aufloesungBild = "" }) {
     this.hinweis = hinweis;
     this.wort = wort.trim().toUpperCase();
     this.maxVersuche = maxVersuche;
     this.aufloesung = aufloesung;
+    this.aufloesungBild = aufloesungBild;
   }
 
   render(container, onFertig) {
@@ -11,6 +12,7 @@ export class Wordle {
     let versuche = [];
     let aktuell = "";
     let beendet = false;
+    const tastenStatus = {}; // "correct" | "present" | "absent"
 
     const reihen = [
       ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "Ü"],
@@ -37,6 +39,33 @@ export class Wordle {
       return res;
     };
 
+    const aktualisiereTastenStatus = (tipp, farben) => {
+      for (let i = 0; i < laenge; i++) {
+        const ch = tipp[i];
+        if (farben[i] === "var(--success)") {
+          tastenStatus[ch] = "correct";
+        } else if (farben[i] === "var(--warn)" && tastenStatus[ch] !== "correct") {
+          tastenStatus[ch] = "present";
+        } else if (!tastenStatus[ch]) {
+          tastenStatus[ch] = "absent";
+        }
+      }
+    };
+
+    const tastenStyle = (taste) => {
+      const status = tastenStatus[taste];
+      if (status === "correct") {
+        return "background:var(--success); color:#052e16;";
+      }
+      if (status === "present") {
+        return "background:var(--warn); color:#0f172a;";
+      }
+      if (status === "absent") {
+        return "background:#111827; color:#475569; border:1px solid #1e293b; opacity:0.55;";
+      }
+      return "background:var(--card-soft); color:var(--text);";
+    };
+
     const zeichne = () => {
       let boardHtml = "";
       for (let r = 0; r < this.maxVersuche; r++) {
@@ -58,7 +87,12 @@ export class Wordle {
       const tastenHtml = reihen
         .map(
           (r) => `<div style="display:flex; gap:4px; justify-content:center; margin-bottom:5px;">
-            ${r.map((t) => `<button type="button" data-key="${t}" style="flex:1; padding:10px 2px; margin:0; font-size:0.82rem; background:var(--card-soft); color:var(--text);">${t}</button>`).join("")}
+            ${r
+              .map(
+                (t) =>
+                  `<button type="button" data-key="${t}" style="flex:1; padding:10px 2px; margin:0; font-size:0.82rem; ${tastenStyle(t)}">${t}</button>`
+              )
+              .join("")}
           </div>`
         )
         .join("");
@@ -84,6 +118,8 @@ export class Wordle {
         zeichne();
       } else if (taste === "OK" || taste === "ENTER") {
         if (aktuell.length !== laenge) return;
+        const farben = bewerteWort(aktuell);
+        aktualisiereTastenStatus(aktuell, farben);
         versuche.push(aktuell);
         const gewonnen = aktuell === this.wort;
         aktuell = "";
@@ -96,6 +132,7 @@ export class Wordle {
             <div class="feedback">
               <strong>${gewonnen ? `Geschafft in ${versuche.length} Versuch(en)! (+${punkte} Pkt)` : `Lösungswort: ${this.wort} (+${punkte} Pkt)`}</strong>
               ${this.aufloesung ? `<p style="margin-top:6px; margin-bottom:0;">${this.aufloesung}</p>` : ""}
+              ${this.aufloesungBild ? `<img src="${this.aufloesungBild}" alt="Auflösung" class="feedback-img" />` : ""}
             </div>
           `;
           onFertig(punkte);
@@ -105,6 +142,18 @@ export class Wordle {
         zeichne();
       }
     };
+
+    const onKeyDown = (e) => {
+      if (!container.isConnected || beendet) {
+        document.removeEventListener("keydown", onKeyDown);
+        return;
+      }
+      const key = e.key.toUpperCase();
+      if (key === "BACKSPACE" || key === "ENTER" || /^[A-ZÄÖÜ]$/.test(key)) {
+        verarbeiteTaste(key);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
 
     zeichne();
   }
