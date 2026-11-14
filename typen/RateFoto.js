@@ -1,4 +1,4 @@
-export class ZoomFoto {
+export class RateFoto {
   constructor({ frage, bildZoom, bildVoll = null, loesung, tipp = "", aufloesung = "" }) {
     this.frage = frage;
     this.bildZoom = bildZoom;

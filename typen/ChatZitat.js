@@ -13,7 +13,7 @@ export class ChatZitat {
       .join("");
 
     container.innerHTML = `
-      <h2>Wer hat's geschrieben?</h2>
+      <h2>Von wem war diese WhatsApp-Nachricht?</h2>
       ${this.hinweis ? `<p class="muted">${this.hinweis}</p>` : ""}
       <div class="chat-bubble">„${this.zitat}“</div>
       <div id="optionen">${buttonsHtml}</div>
