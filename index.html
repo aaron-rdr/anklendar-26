@@ -1,1 +1,203 @@
-test
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>24 Tage</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-soft: #273549;
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --success: #10b981;
+      --error: #ef4444;
+      --warn: #eab308;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    header {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 4px 18px;
+    }
+
+    header a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .badge {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    main {
+      width: 100%;
+      max-width: 520px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    h1 { font-size: 1.45rem; margin-bottom: 6px; }
+    h2 { font-size: 1.2rem; margin-bottom: 12px; color: var(--accent); }
+    p { margin-bottom: 14px; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+
+    input[type="text"], input[type="number"], input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    input:focus { border-color: var(--accent); }
+
+    button {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: none;
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.08s ease, background 0.15s ease;
+      margin-bottom: 10px;
+    }
+
+    button:active { transform: scale(0.98); }
+    button:disabled { opacity: 0.6; cursor: default; }
+
+    button.secondary {
+      background: var(--card-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-weight: 500;
+    }
+
+    button.option-btn {
+      background: var(--card-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+      text-align: left;
+      font-weight: 600;
+    }
+
+    button.option-btn.correct { background: var(--success); color: #052e16; border-color: var(--success); }
+    button.option-btn.wrong { background: var(--error); color: #fff; border-color: var(--error); }
+
+    .chat-bubble {
+      background: #132a24;
+      border-left: 4px solid var(--success);
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      margin: 14px 0;
+    }
+
+    .photo-frame {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      margin: 12px 0 16px;
+      border: 1px solid var(--border);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      display: block;
+      max-height: 360px;
+      object-fit: cover;
+    }
+
+    .feedback {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--card-soft);
+      border-left: 4px solid var(--accent);
+    }
+
+    .grid-24 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .door {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      background: var(--card-soft);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .door.done { border-color: var(--success); background: rgba(16, 185, 129, 0.14); }
+    .door.locked { opacity: 0.45; pointer-events: none; }
+    .door span { font-size: 0.72rem; font-weight: 500; color: var(--muted); margin-top: 2px; }
+
+    .footer-nav {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-nav a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="./" id="home-link">← Übersicht</a>
+    <div class="badge" id="score-badge">Punkte: 0</div>
+  </header>
+  <main id="app"></main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
