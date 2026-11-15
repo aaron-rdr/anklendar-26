@@ -1,7 +1,7 @@
 import { KALENDER } from './tage.js';
 
 const KONFIG = {
-  titel: "24 Tage mit dir",
+  titel: "Annkis digitaler Adventskalender",
   jahr: 2026,
   passwort: "winter26", // Leer lassen "" um die Passwort-Sperre zu deaktivieren
   testModus: true       // WICHTIG: Vor dem 1. Dezember auf false setzen!
@@ -39,8 +39,8 @@ function istTagFreigeschaltet(tag) {
 function renderPasswortScreen(state) {
   app.innerHTML = `
     <h1>${KONFIG.titel}</h1>
-    <p class="muted">Gib einmalig unser Geheimwort ein, um den Kalender auf diesem Gerät freizuschalten.</p>
-    <input type="password" id="pw-input" placeholder="Geheimwort..." />
+    <p class="muted">Gib einmalig das Passwort aus dem Umschlag ein, um den Kalender auf diesem Gerät freizuschalten.</p>
+    <input type="password" id="pw-input" placeholder="Passwort..." />
     <button id="pw-btn">Freischalten</button>
     <p id="pw-err" class="muted" style="color: var(--error); display: none;">Falsches Wort – versuch es nochmal.</p>
   `;
@@ -82,7 +82,7 @@ function renderUebersicht(state) {
 
   app.innerHTML = `
     <h1>${KONFIG.titel}</h1>
-    <p class="muted">Scanne jeden Tag den passenden QR-Code oder wähle ein freigeschaltetes Türchen aus.</p>
+    <p class="muted">Wähle ein Türchen aus. Nicht schummeln.</p>
     <div class="grid-24">${kacheln}</div>
   `;
 }
@@ -100,14 +100,14 @@ function renderTag(tag, state) {
     const diffTage = Math.max(1, Math.ceil((ziel - heute) / (1000 * 60 * 60 * 24)));
     app.innerHTML = `
       <h2>Türchen ${tag} ist noch zu</h2>
-      <p>Netter Versuch – dieses Türchen öffnet sich erst am <strong>${tag}. Dezember</strong>.</p>
-      <p class="muted">Noch ${diffTage} Tag(e) gedulden.</p>
+      <p>Ich hab doch gesagt nicht schummeln! Dieses Türchen öffnet sich erst am <strong>${tag}. Dezember</strong>.</p>
+      <p class="muted">Versuch's in ${diffTage} Tagen nochmal.</p>
     `;
     return;
   }
 
   app.innerHTML = `
-    <div class="muted" style="margin-bottom: 4px;">Türchen ${tag} von 24</div>
+    <div class="muted" style="margin-bottom: 4px;">Türchen ${tag}/div>
     <div id="spiel-container"></div>
     <div class="footer-nav" id="footer-nav" style="display: none;"></div>
   `;

@@ -3,6 +3,7 @@ import { RateFoto } from './typen/RateFoto.js';
 import { Schaetzfrage } from './typen/Schaetzfrage.js';
 import { Wordle } from './typen/Wordle.js';
 import { Finale } from './typen/Finale.js';
+import { bildPfad } from './bilder/BildNamen.js';
 
 export const KALENDER = {
   1: new ChatZitat({
@@ -14,12 +15,13 @@ export const KALENDER = {
   }),
 
   2: new RateFoto({
+    titel: "Satellitenbild-Rätsel",
     frage: "Wo waren wir hier unterwegs?",
-    bildZoom: "bilder/tag2_zoom.jpg",
-    bildVoll: "bilder/tag2_voll.jpg",
-    loesung: ["bozen", "waltherplatz"],
-    tipp: "Es hat an dem Tag geregnet.",
-    aufloesung: "Unser erster Cappuccino dort!"
+    bildZoom: bildPfad('VeronaRaten'),
+    bildVoll: bildPfad('VeronaAufloesung'),
+    loesung: ["Verona"],
+    tipp: "Gelato",
+    aufloesung: "Da hast du beim Hügel schlapp gemacht!"
   }),
 
   3: new Schaetzfrage({
