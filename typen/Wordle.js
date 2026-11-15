@@ -98,7 +98,7 @@ export class Wordle {
         .join("");
 
       container.innerHTML = `
-        <h2>Beziehungs-Wordle (${laenge} Buchstaben)</h2>
+        <h2>Heute ein Wordle für dich (${laenge} Buchstaben)</h2>
         <p class="muted">${this.hinweis}</p>
         <div style="max-width:340px; margin:14px auto;">${boardHtml}</div>
         <div id="kb">${tastenHtml}</div>

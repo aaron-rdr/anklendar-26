@@ -1,10 +1,10 @@
 // Sowohl für Satellitenbilder, als auch für ausgeschnittenen Gegenstand raten geeignet
 
 export class RateFoto {
-  constructor({ titel = "Bild-Rätsel", frage, bildZoom, bildVoll = null, loesung, tipp = "", aufloesung = "", aufloesungBild = "" }) {
+  constructor({ titel = "Bild-Rätsel", frage, bildBlurred, bildVoll = null, loesung, tipp = "", aufloesung = "", aufloesungBild = "" }) {
     this.titel = titel;
     this.frage = frage;
-    this.bildZoom = bildZoom;
+    this.bildBlurred = bildBlurred;
     this.bildVoll = bildVoll;
     this.loesungen = Array.isArray(loesung) ? loesung : [loesung];
     this.tipp = tipp;
@@ -19,7 +19,7 @@ export class RateFoto {
       <h2>${this.titel}</h2>
       <p>${this.frage}</p>
       <div class="photo-frame">
-        <img id="raetsel-img" src="${this.bildZoom}" alt="Rätselbild" />
+        <img id="raetsel-img" src="${this.bildBlurred}" alt="Rätselbild" />
       </div>
       ${this.tipp ? `<button class="secondary" id="tipp-btn">Tipp anzeigen (-20 Pkt)</button>` : ""}
       <p id="tipp-text" class="muted" style="display: none;"></p>
