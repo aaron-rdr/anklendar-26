@@ -15,6 +15,7 @@ export const KALENDER = {
   }),
 
   2: new RateFoto({
+    titel: "Satellitenbild-Rätsel",
     frage: "Wo waren wir hier unterwegs?",
     bildZoom: bildPfad('VeronaRaten'),
     bildVoll: bildPfad('VeronaAufloesung'),
