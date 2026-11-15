@@ -107,7 +107,7 @@ function renderTag(tag, state) {
   }
 
   app.innerHTML = `
-    <div class="muted" style="margin-bottom: 4px;">Türchen ${tag}/div>
+    <div class="muted" style="margin-bottom: 4px;">Türchen ${tag}</div>
     <div id="spiel-container"></div>
     <div class="footer-nav" id="footer-nav" style="display: none;"></div>
   `;

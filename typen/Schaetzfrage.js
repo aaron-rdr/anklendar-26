@@ -10,7 +10,7 @@ export class Schaetzfrage {
 
   render(container, onFertig) {
     container.innerHTML = `
-      <h2>Schätzfrage</h2>
+      <h2>Schätz mal!</h2>
       <p>${this.frage}</p>
       <input type="number" inputmode="decimal" id="tipp-input" placeholder="Deine Schätzung ${this.einheit ? `(${this.einheit})` : ""}..." />
       <button id="check-btn">Schätzung abgeben</button>
