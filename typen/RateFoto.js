@@ -1,11 +1,11 @@
 // Sowohl für Satellitenbilder, als auch für ausgeschnittenen Gegenstand raten geeignet
 
 export class RateFoto {
-  constructor({ titel = "Bild-Rätsel", frage, bildBlurred, bildVoll = null, loesung, tipp = "", aufloesung = "", aufloesungBild = "" }) {
+  constructor({ titel = "Bild-Rätsel", frage, bildRaten, bildLoesung = null, loesung, tipp = "", aufloesung = "", aufloesungBild = "" }) {
     this.titel = titel;
     this.frage = frage;
-    this.bildBlurred = bildBlurred;
-    this.bildVoll = bildVoll;
+    this.bildRaten = bildRaten;
+    this.bildLoesung = bildLoesung;
     this.loesungen = Array.isArray(loesung) ? loesung : [loesung];
     this.tipp = tipp;
     this.aufloesung = aufloesung;
@@ -19,7 +19,7 @@ export class RateFoto {
       <h2>${this.titel}</h2>
       <p>${this.frage}</p>
       <div class="photo-frame">
-        <img id="raetsel-img" src="${this.bildBlurred}" alt="Rätselbild" />
+        <img id="raetsel-img" src="${this.bildRaten}" alt="Rätselbild" />
       </div>
       ${this.tipp ? `<button class="secondary" id="tipp-btn">Tipp anzeigen (-20 Pkt)</button>` : ""}
       <p id="tipp-text" class="muted" style="display: none;"></p>
@@ -30,8 +30,8 @@ export class RateFoto {
     `;
 
     const abschliessen = (punkte, statusTitel) => {
-      if (this.bildVoll) {
-        container.querySelector("#raetsel-img").src = this.bildVoll;
+      if (this.bildLoesung) {
+        container.querySelector("#raetsel-img").src = this.bildLoesung;
       }
       container.querySelector("#check-btn").disabled = true;
       container.querySelector("#aufgeben-btn").disabled = true;

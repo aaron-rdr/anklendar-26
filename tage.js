@@ -9,7 +9,7 @@ export const KALENDER = {
   1: new Schaetzfrage({
     frage: "Wie viele Fotos habe ich auf meinem Handy, auf denen du drauf bist?",
     richtig: 338,
-    toleranz: 25,
+    toleranz: 20,
     einheit: "Fotos",
     aufloesung: "Genau 338 Fotos sind in deinem Personenerkennungs-Ordner."
   }),
