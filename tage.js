@@ -112,7 +112,7 @@ export const KALENDER = {
   14: new ChatZitat({
     titel: "Wer hat welche WhatsApp-Nachricht gesendet?",
     zitat: "A: Mach noch das Komma hin“\n„B: Du meinst den Beistrich",
-    optionen: ["A: Annki\nB: Aaron", "A: Aaron\nB: Annki"],
+    optionen: ["A: Annki - B: Aaron", "A: Aaron - B: Annki"],
     richtig: 1,
     aufloesung: "Da hast du am 08.09.25 eingesehen, wie's wirklich heißt."
   }),
