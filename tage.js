@@ -32,7 +32,7 @@ export const KALENDER = {
 
   4: new ChatZitat({
     zitat: "Hast deinen Aperol vergessen",
-    optionen: ["Du", "Ich"],
+    optionen: ["Annki", "Aaron"],
     richtig: 1,
     aufloesung: "Das hab ich dir am 03.10.25 geschrieben, am Tag nach dem Ingolstädter Volksfest."
   }),
@@ -56,14 +56,14 @@ export const KALENDER = {
   7: new Schaetzfrage({
     frage: "Wie viele Nachrichten sind insgesamt in unserem WhatsApp-Chat?",
     richtig: 6000,
-    toleranz: 200,
+    toleranz: 500,
     einheit: "Nachrichten",
     aufloesung: "Es sind ziemlich genau 6000 Nachrichten, Tendenz steigend natürlich."
   }),
 
   8: new ChatZitat({
     zitat: "Bin grad am Origami falten in den Obstplantagen",
-    optionen: ["Du", "Ich"],
+    optionen: ["Annki", "Aaron"],
     richtig: 0,
     aufloesung: "Das hast du mir am 23.08.25 geschrieben, ich weiß immer noch nicht was du damit meintest."
   }),
@@ -90,7 +90,7 @@ export const KALENDER = {
 
   11: new ChatZitat({
     zitat: "Aber Toast ist schon männlich",
-    optionen: ["Du", "Ich"],
+    optionen: ["Annki", "Aaron"],
     richtig: 0,
     aufloesung: "Das hast du mir am 15.06.25 geschrieben. Beweis für meine Männlichkeit als Toastliebhaber."
   }),
@@ -98,7 +98,7 @@ export const KALENDER = {
   12: new Schaetzfrage({
     frage: "Wie viele Prozent unserer WhatsApp-Nachrichten kamen von dir?",
     richtig: 53,
-    toleranz: 5,
+    toleranz: 10,
     einheit: "Prozent",
     aufloesung: "Ungefähr 53%, du Quasselstrippe. Das ist aber irgendwie knapper als ich dachte."
   }),
@@ -110,8 +110,9 @@ export const KALENDER = {
   }),
 
   14: new ChatZitat({
-    zitat: "A: Mach noch das Komma hin\nB: Du meinst den Beistrich\nVon wem kam Nachricht A?",
-    optionen: ["Du", "Ich"],
+    zitat: "A: Mach noch das Komma hin\nB: Du meinst den Beistrich",
+    hinweis: "Von wem kam Nachricht A?",
+    optionen: ["Annki", "Aaron"],
     richtig: 1,
     aufloesung: "Da hast du am 08.09.25 eingesehen, wie's wirklich heißt."
   }),
@@ -146,7 +147,7 @@ export const KALENDER = {
 
   18: new ChatZitat({
     zitat: "Doch bist breiter",
-    optionen: ["Du", "Ich"],
+    optionen: ["Annki", "Aaron"],
     richtig: 0,
     aufloesung: "Das hast du am 14.08.25 tatsächlich so zugegeben."
   }),
@@ -156,7 +157,8 @@ export const KALENDER = {
     frage: "Was haben wir hier gemacht? Bonus Punkte, wenn du zwei Sachen weißt (mit Leerzeichen getrennt, erster Buchstabe immer groß)!",
     bildRaten: bildPfad('ReischachRaten'),
     bildLoesung: bildPfad('ReischachAufloesung'),
-    loesung: ["Almabtrieb",  "Kneippen", "Almabtrieb Kneippen", "Kneippen Almabtrieb"],
+    loesung: ["Almabtrieb", "Kneippen"],
+    antwortfelder: 2,
     tipp: "Bei einer Sache gabs Bonbons.",
     aufloesung: "Kühe, kaltes Wasser und Du, was will man mehr?"
   }),
