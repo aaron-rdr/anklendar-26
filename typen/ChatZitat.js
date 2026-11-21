@@ -1,5 +1,6 @@
 export class ChatZitat {
-  constructor({ zitat, hinweis = "", optionen = ["Du", "Ich"], richtig, aufloesung = "", aufloesungBild = "" }) {
+  constructor({ titel = "Von wem kam diese WhatsApp-Nachricht?", zitat, hinweis = "", optionen = ["Du", "Ich"], richtig, aufloesung = "", aufloesungBild = "" }) {
+    this.titel = titel;
     this.zitat = zitat;
     this.hinweis = hinweis;
     this.optionen = optionen;
@@ -14,7 +15,7 @@ export class ChatZitat {
       .join("");
 
     container.innerHTML = `
-      <h2>Von wem kam diese WhatsApp-Nachricht?</h2>
+      <h2>${this.titel}</h2>
       ${this.hinweis ? `<p class="muted">${this.hinweis}</p>` : ""}
       <div class="chat-bubble">„${this.zitat}“</div>
       <div id="optionen">${buttonsHtml}</div>

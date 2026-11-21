@@ -89,8 +89,10 @@ export class Wordle {
           (r) => `<div style="display:flex; gap:4px; justify-content:center; margin-bottom:5px;">
             ${r
               .map(
-                (t) =>
-                  `<button type="button" data-key="${t}" style="flex:1; padding:10px 2px; margin:0; font-size:0.82rem; ${tastenStyle(t)}">${t}</button>`
+                (t) => {
+                  const deaktiviert = /^[A-ZÄÖÜ]$/.test(t) && tastenStatus[t] === "absent";
+                  return `<button type="button" data-key="${t}" ${deaktiviert ? "disabled" : ""} style="flex:1; padding:10px 2px; margin:0; font-size:0.82rem; ${tastenStyle(t)}">${t}</button>`;
+                }
               )
               .join("")}
           </div>`
@@ -112,6 +114,7 @@ export class Wordle {
 
     const verarbeiteTaste = (taste) => {
       if (beendet) return;
+      if (/^[A-ZÄÖÜ]$/.test(taste) && tastenStatus[taste] === "absent") return;
 
       if (taste === "⌫" || taste === "BACKSPACE") {
         aktuell = aktuell.slice(0, -1);
