@@ -7,24 +7,28 @@
   <title>Annkis Adventskalender</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --card-soft: #273549;
-      --accent: #f59e0b;
-      --accent-hover: #d97706;
-      --success: #10b981;
-      --error: #ef4444;
-      --warn: #eab308;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --border: #334155;
+      --bg: #10251e;
+      --card: #20372d;
+      --card-soft: #2b493a;
+      --accent: #efc36a;
+      --accent-hover: #d9a74f;
+      --success: #82b98b;
+      --error: #e0786b;
+      --warn: #f0cc71;
+      --text: #f8f2e5;
+      --muted: #b8c8b9;
+      --border: #4b6854;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 50% 0, rgba(42, 91, 59, 0.55), transparent 58%),
+        linear-gradient(155deg, #11291f, #111b27 82%);
+      background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
       display: flex;
@@ -34,7 +38,25 @@
       line-height: 1.5;
     }
 
+    .background-dots {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .background-dots span {
+      position: absolute;
+      display: block;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+    }
+
     header {
+      position: relative;
+      z-index: 1;
       width: 100%;
       max-width: 520px;
       display: flex;
@@ -50,27 +72,52 @@
     }
 
     .badge {
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: rgba(136, 55, 45, 0.24);
+      border: 1px solid rgba(239, 195, 106, 0.45);
       padding: 6px 12px;
       border-radius: 999px;
       font-size: 0.85rem;
       font-weight: 600;
-      color: var(--accent);
+      color: #f3cf83;
     }
 
     main {
+      position: relative;
+      z-index: 1;
       width: 100%;
       max-width: 520px;
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(35, 62, 46, 0.97), rgba(27, 43, 46, 0.97));
+      border: 1px solid rgba(239, 195, 106, 0.3);
       border-radius: 18px;
       padding: 24px 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.36), 0 0 24px rgba(239, 195, 106, 0.06);
+    }
+
+    main::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 22%;
+      right: 22%;
+      height: 3px;
+      border-radius: 0 0 999px 999px;
+      background: linear-gradient(90deg, transparent, #b44e43, #efc36a, #b44e43, transparent);
+      pointer-events: none;
+    }
+
+    main::after {
+      content: "🐭  🐻";
+      position: absolute;
+      top: 7px;
+      right: 16px;
+      font-size: 0.95rem;
+      opacity: 0.85;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+      pointer-events: none;
     }
 
     h1 { font-size: 1.45rem; margin-bottom: 6px; }
-    h2 { font-size: 1.2rem; margin-bottom: 12px; color: var(--accent); }
+    h2 { font-size: 1.2rem; margin-bottom: 12px; color: #f0c66f; }
     p { margin-bottom: 14px; }
     .muted { color: var(--muted); font-size: 0.9rem; }
 
@@ -79,7 +126,7 @@
       padding: 12px 14px;
       border-radius: 10px;
       border: 1px solid var(--border);
-      background: var(--bg);
+      background: rgba(12, 28, 24, 0.8);
       color: var(--text);
       font-size: 1rem;
       margin-bottom: 12px;
@@ -93,23 +140,33 @@
       padding: 12px 16px;
       border-radius: 10px;
       border: none;
-      background: var(--accent);
-      color: #0f172a;
+      background: linear-gradient(135deg, #f1cb78, #dca64f);
+      color: #253426;
       font-weight: 700;
       font-size: 1rem;
       cursor: pointer;
       transition: transform 0.08s ease, background 0.15s ease;
       margin-bottom: 10px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
     }
 
     button:active { transform: scale(0.98); }
     button:disabled { opacity: 0.6; cursor: default; }
 
     button.secondary {
-      background: var(--card-soft);
+      background: rgba(46, 75, 58, 0.94);
       color: var(--text);
       border: 1px solid var(--border);
       font-weight: 500;
+    }
+
+    button:not(.secondary):not(.option-btn):hover:not(:disabled) {
+      background: linear-gradient(135deg, #f6d891, var(--accent-hover));
+    }
+
+    button:focus-visible, a:focus-visible, .zoomable-image:focus-visible {
+      outline: 3px solid #fff1c7;
+      outline-offset: 3px;
     }
 
     button.option-btn {
@@ -124,8 +181,8 @@
     button.option-btn.wrong { background: var(--error); color: #fff; border-color: var(--error); }
 
     .chat-bubble {
-      background: #132a24;
-      border-left: 4px solid var(--success);
+      background: rgba(18, 48, 37, 0.9);
+      border-left: 4px solid var(--accent);
       padding: 14px 16px;
       border-radius: 12px;
       font-size: 1.05rem;
@@ -137,9 +194,10 @@
       width: 100%;
       border-radius: 12px;
       overflow: hidden;
-      background: #000;
+      background: #101914;
       margin: 12px 0 16px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(239, 195, 106, 0.36);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
     .photo-frame img {
@@ -223,8 +281,8 @@
       margin-top: 16px;
       padding: 14px;
       border-radius: 12px;
-      background: var(--card-soft);
-      border-left: 4px solid var(--accent);
+      background: rgba(43, 73, 58, 0.92);
+      border-left: 4px solid #efc36a;
     }
 
     .grid-24 {
@@ -237,8 +295,8 @@
     .door {
       aspect-ratio: 1;
       border-radius: 12px;
-      background: var(--card-soft);
-      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #2d4d3a, #263d39);
+      border: 1px solid rgba(201, 188, 132, 0.28);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -249,7 +307,7 @@
       font-size: 1.1rem;
     }
 
-    .door.done { border-color: var(--success); background: rgba(16, 185, 129, 0.14); }
+    .door.done { border-color: var(--success); background: linear-gradient(145deg, rgba(96, 153, 100, 0.28), rgba(39, 72, 53, 0.92)); }
     .door.locked { opacity: 0.45; pointer-events: none; }
     .door span { font-size: 0.72rem; font-weight: 500; color: var(--muted); margin-top: 2px; }
 
@@ -260,15 +318,32 @@
       text-align: center;
     }
 
-    .footer-nav a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+    .footer-nav a { color: #f0c66f; text-decoration: none; font-weight: 600; font-size: 0.92rem; }
+
   </style>
 </head>
 <body>
+  <div class="background-dots" id="background-dots" aria-hidden="true"></div>
   <header>
     <a href="./" id="home-link">← Übersicht</a>
     <div class="badge" id="score-badge">Punkte: 0</div>
   </header>
   <main id="app"></main>
+  <script>
+    const punkte = document.getElementById("background-dots");
+    const anzahlPunkte = 150;
+
+    for (let i = 0; i < anzahlPunkte; i++) {
+      const punkt = document.createElement("span");
+      const groesse = Math.random() < 0.12 ? 2 : 1;
+      punkt.style.left = `${Math.random() * 100}%`;
+      punkt.style.top = `${Math.random() * 100}%`;
+      punkt.style.width = `${groesse}px`;
+      punkt.style.height = `${groesse}px`;
+      punkt.style.opacity = `${0.2 + Math.random() * 0.55}`;
+      punkte.appendChild(punkt);
+    }
+  </script>
   <script type="module" src="./app.js"></script>
 </body>
 </html>

@@ -80,7 +80,7 @@ export const KALENDER = {
 
   10: new RateFoto({
     titel: "Errate den fehlenden Gegenstand",
-    frage: "Was gabs hier leckeres zum Essen?",
+    frage: "Was gabs hier leckeres zum Essen? Zu allgemeine Antworten zählen nicht!",
     bildRaten: bildPfad('FuertePastaBlur'),
     bildLoesung: bildPfad('FuertePasta'),
     tipp: "Schnell und einfach",
