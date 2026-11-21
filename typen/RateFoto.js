@@ -31,7 +31,7 @@ export class RateFoto {
       `).join("")}
       <button id="check-btn">Prüfen</button>
       <div id="feedback"></div>
-      <div id="bild-modal" class="image-lightbox" hidden role="dialog" aria-modal="true" aria-label="Bildansicht">
+      <dialog id="bild-modal" class="image-lightbox" aria-label="Bildansicht">
         <div class="image-lightbox-controls">
           <button type="button" class="secondary" id="bild-zoom-out" aria-label="Verkleinern">−</button>
           <button type="button" class="secondary" id="bild-zoom-reset">100%</button>
@@ -41,18 +41,17 @@ export class RateFoto {
         <div class="image-lightbox-viewport">
           <img id="bild-modal-img" class="image-lightbox-image" alt="" />
         </div>
-      </div>
+      </dialog>
     `;
 
     const bildModal = container.querySelector("#bild-modal");
     const bildModalImg = container.querySelector("#bild-modal-img");
-    const bildModalViewport = container.querySelector(".image-lightbox-viewport");
     const zoomOutButton = container.querySelector("#bild-zoom-out");
     const zoomInButton = container.querySelector("#bild-zoom-in");
     const zoomResetButton = container.querySelector("#bild-zoom-reset");
     let zoom = 1;
     let vorherigerFokus = null;
-    let vorherigesBodyOverflow = "";
+    let vorherigeBildSichtbarkeit = "";
 
     const aktualisiereZoom = () => {
       bildModalImg.style.width = `${zoom * 100}%`;
@@ -64,26 +63,50 @@ export class RateFoto {
 
     const bildOeffnen = (bild) => {
       vorherigerFokus = bild;
-      vorherigesBodyOverflow = document.body.style.overflow;
+      vorherigeBildSichtbarkeit = bild.style.visibility;
+      bild.style.visibility = "hidden";
       bildModalImg.src = bild.currentSrc || bild.src;
       bildModalImg.alt = bild.alt;
       zoom = 1;
       aktualisiereZoom();
-      bildModal.hidden = false;
-      document.body.style.overflow = "hidden";
+      bildModal.showModal();
       container.querySelector("#bild-modal-close").focus();
     };
 
     const bildSchliessen = () => {
-      bildModal.hidden = true;
-      document.body.style.overflow = vorherigesBodyOverflow;
-      if (vorherigerFokus) vorherigerFokus.focus();
+      if (bildModal.open) bildModal.close();
     };
+
+    bildModal.addEventListener("close", () => {
+      if (vorherigerFokus) vorherigerFokus.style.visibility = vorherigeBildSichtbarkeit;
+      if (vorherigerFokus) vorherigerFokus.focus();
+    });
+
+    bildModal.addEventListener("click", (e) => {
+      if (e.target.closest(".image-lightbox-controls")) return;
+
+      const rect = bildModalImg.getBoundingClientRect();
+      const bildseitenverhaeltnis = bildModalImg.naturalWidth / bildModalImg.naturalHeight;
+      const rahmenseitenverhaeltnis = rect.width / rect.height;
+      const bildbreite = bildseitenverhaeltnis > rahmenseitenverhaeltnis
+        ? rect.width
+        : rect.height * bildseitenverhaeltnis;
+      const bildhoehe = bildseitenverhaeltnis > rahmenseitenverhaeltnis
+        ? rect.width / bildseitenverhaeltnis
+        : rect.height;
+      const bildLinks = rect.left + (rect.width - bildbreite) / 2;
+      const bildOben = rect.top + (rect.height - bildhoehe) / 2;
+      const aufBild = e.clientX >= bildLinks
+        && e.clientX <= bildLinks + bildbreite
+        && e.clientY >= bildOben
+        && e.clientY <= bildOben + bildhoehe;
+
+      if (!aufBild) bildSchliessen();
+    });
 
     container.addEventListener("click", (e) => {
       const bild = e.target.closest(".zoomable-image");
       if (bild && container.contains(bild)) bildOeffnen(bild);
-      if (e.target === bildModal || e.target === bildModalViewport) bildSchliessen();
     });
 
     container.addEventListener("keydown", (e) => {
@@ -91,8 +114,6 @@ export class RateFoto {
       if (bild && (e.key === "Enter" || e.key === " ")) {
         e.preventDefault();
         bildOeffnen(bild);
-      } else if (e.key === "Escape" && !bildModal.hidden) {
-        bildSchliessen();
       }
     });
 
