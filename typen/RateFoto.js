@@ -22,7 +22,7 @@ export class RateFoto {
       <h2>${this.titel}</h2>
       <p>${this.frage}</p>
       <div class="photo-frame">
-        <img id="raetsel-img" src="${this.bildRaten}" alt="Rätselbild" />
+        <img id="raetsel-img" class="zoomable-image" src="${this.bildRaten}" alt="Rätselbild" tabindex="0" role="button" aria-label="Bild vergrößern" />
       </div>
       ${this.tipp ? `<button class="secondary" id="tipp-btn">Tipp anzeigen (-20 Pkt)</button>` : ""}
       <p id="tipp-text" class="muted" style="display: none;"></p>
@@ -31,7 +31,84 @@ export class RateFoto {
       `).join("")}
       <button id="check-btn">Prüfen</button>
       <div id="feedback"></div>
+      <div id="bild-modal" class="image-lightbox" hidden role="dialog" aria-modal="true" aria-label="Bildansicht">
+        <div class="image-lightbox-controls">
+          <button type="button" class="secondary" id="bild-zoom-out" aria-label="Verkleinern">−</button>
+          <button type="button" class="secondary" id="bild-zoom-reset">100%</button>
+          <button type="button" class="secondary" id="bild-zoom-in" aria-label="Vergrößern">+</button>
+          <button type="button" id="bild-modal-close">Schließen</button>
+        </div>
+        <div class="image-lightbox-viewport">
+          <img id="bild-modal-img" class="image-lightbox-image" alt="" />
+        </div>
+      </div>
     `;
+
+    const bildModal = container.querySelector("#bild-modal");
+    const bildModalImg = container.querySelector("#bild-modal-img");
+    const bildModalViewport = container.querySelector(".image-lightbox-viewport");
+    const zoomOutButton = container.querySelector("#bild-zoom-out");
+    const zoomInButton = container.querySelector("#bild-zoom-in");
+    const zoomResetButton = container.querySelector("#bild-zoom-reset");
+    let zoom = 1;
+    let vorherigerFokus = null;
+    let vorherigesBodyOverflow = "";
+
+    const aktualisiereZoom = () => {
+      bildModalImg.style.width = `${zoom * 100}%`;
+      bildModalImg.style.height = `${zoom * 100}%`;
+      zoomResetButton.textContent = `${Math.round(zoom * 100)}%`;
+      zoomOutButton.disabled = zoom <= 1;
+      zoomInButton.disabled = zoom >= 4;
+    };
+
+    const bildOeffnen = (bild) => {
+      vorherigerFokus = bild;
+      vorherigesBodyOverflow = document.body.style.overflow;
+      bildModalImg.src = bild.currentSrc || bild.src;
+      bildModalImg.alt = bild.alt;
+      zoom = 1;
+      aktualisiereZoom();
+      bildModal.hidden = false;
+      document.body.style.overflow = "hidden";
+      container.querySelector("#bild-modal-close").focus();
+    };
+
+    const bildSchliessen = () => {
+      bildModal.hidden = true;
+      document.body.style.overflow = vorherigesBodyOverflow;
+      if (vorherigerFokus) vorherigerFokus.focus();
+    };
+
+    container.addEventListener("click", (e) => {
+      const bild = e.target.closest(".zoomable-image");
+      if (bild && container.contains(bild)) bildOeffnen(bild);
+      if (e.target === bildModal || e.target === bildModalViewport) bildSchliessen();
+    });
+
+    container.addEventListener("keydown", (e) => {
+      const bild = e.target.closest(".zoomable-image");
+      if (bild && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        bildOeffnen(bild);
+      } else if (e.key === "Escape" && !bildModal.hidden) {
+        bildSchliessen();
+      }
+    });
+
+    container.querySelector("#bild-modal-close").onclick = bildSchliessen;
+    container.querySelector("#bild-zoom-out").onclick = () => {
+      zoom = Math.max(1, zoom - 0.5);
+      aktualisiereZoom();
+    };
+    container.querySelector("#bild-zoom-in").onclick = () => {
+      zoom = Math.min(4, zoom + 0.5);
+      aktualisiereZoom();
+    };
+    container.querySelector("#bild-zoom-reset").onclick = () => {
+      zoom = 1;
+      aktualisiereZoom();
+    };
 
     const abschliessen = (punkte, statusTitel) => {
       if (this.bildLoesung) {
@@ -48,7 +125,7 @@ export class RateFoto {
           <strong>${statusTitel} (${punkte} Pkt)</strong>
           <p style="margin-top: 6px; margin-bottom: 0;">Lösung: <strong>${loesungstext}</strong></p>
           ${this.aufloesung ? `<p style="margin-top: 6px; margin-bottom: 0;">${this.aufloesung}</p>` : ""}
-          ${this.aufloesungBild ? `<img src="${this.aufloesungBild}" alt="Auflösung" class="feedback-img" />` : ""}
+          ${this.aufloesungBild ? `<img src="${this.aufloesungBild}" alt="Auflösung" class="feedback-img zoomable-image" tabindex="0" role="button" aria-label="Bild vergrößern" />` : ""}
         </div>
       `;
       onFertig(punkte);
