@@ -50,7 +50,7 @@ export const KALENDER = {
   6: new Wordle({
     hinweis: "",
     wort: "BRUNO",
-    aufloesung: "Bruno ist immer an deiner Seite :)"
+    aufloesung: "Ob Bruno heimlich der Nikolaus ist?"
   }),
 
   7: new Schaetzfrage({
@@ -110,9 +110,9 @@ export const KALENDER = {
   }),
 
   14: new ChatZitat({
-    zitat: "A: Mach noch das Komma hin\nB: Du meinst den Beistrich",
-    hinweis: "Von wem kam Nachricht A?",
-    optionen: ["Annki", "Aaron"],
+    titel: "Wer hat welche WhatsApp-Nachricht gesendet?",
+    zitat: "A: Mach noch das Komma hin“\n„B: Du meinst den Beistrich",
+    optionen: ["A: Annki\nB: Aaron", "A: Aaron\nB: Annki"],
     richtig: 1,
     aufloesung: "Da hast du am 08.09.25 eingesehen, wie's wirklich heißt."
   }),
@@ -154,7 +154,7 @@ export const KALENDER = {
 
   19: new RateFoto({
     titel: "Satellitenbild-Rätsel",
-    frage: "Was haben wir hier gemacht? Bonus Punkte, wenn du zwei Sachen weißt (mit Leerzeichen getrennt, erster Buchstabe immer groß)!",
+    frage: "Was haben wir hier gemacht? Bonus Punkte, wenn du zwei Sachen weißt!",
     bildRaten: bildPfad('ReischachRaten'),
     bildLoesung: bildPfad('ReischachAufloesung'),
     loesung: ["Almabtrieb", "Kneippen"],

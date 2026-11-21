@@ -1,5 +1,6 @@
 export class ChatZitat {
-  constructor({ zitat, hinweis = "", optionen = ["Du", "Ich"], richtig, aufloesung = "", aufloesungBild = "" }) {
+  constructor({ titel = "Von wem kam diese WhatsApp-Nachricht?", zitat, hinweis = "", optionen = ["Du", "Ich"], richtig, aufloesung = "", aufloesungBild = "" }) {
+    this.titel = titel;
     this.zitat = zitat;
     this.hinweis = hinweis;
     this.optionen = optionen;

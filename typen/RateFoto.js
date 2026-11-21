@@ -27,7 +27,7 @@ export class RateFoto {
       ${this.tipp ? `<button class="secondary" id="tipp-btn">Tipp anzeigen (-20 Pkt)</button>` : ""}
       <p id="tipp-text" class="muted" style="display: none;"></p>
       ${Array.from({ length: this.antwortfelder }, (_, index) => `
-        <input type="text" class="antwort-input" placeholder="${this.antwortfelder > 1 ? `Sache ${index + 1}...` : "Deine Antwort..."}" />
+        <input type="text" class="antwort-input" placeholder="${this.antwortfelder > 1 ? `Antwort ${index + 1}...` : "Deine Antwort..."}" />
       `).join("")}
       <button id="check-btn">Prüfen</button>
       <div id="feedback"></div>
