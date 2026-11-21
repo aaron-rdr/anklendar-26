@@ -4,7 +4,7 @@ const dateien = {
     BergsonRaten: "Screenshot 2026-11-14 171059.png",
     BergsonAufloesung: "WhatsApp Image 2026-11-15 at 08.59.01.jpeg",
     SachsenklemmeRaten: "Screenshot 2026-11-14 171318.png",
-    SachenklemmeAufloesung: "WhatsApp Image 2026-11-15 at 09.00.01.jpeg",
+    SachsenklemmeAufloesung: "WhatsApp Image 2026-11-15 at 09.00.01.jpeg",
     GardaseeRaten: "Screenshot 2026-11-14 171422.png",
     GardaseeAufloesung: "WhatsApp Image 2026-11-15 at 08.59.02.jpeg",
     ReischachRaten: "Screenshot 2026-11-14 172515.png",
