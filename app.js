@@ -3,8 +3,8 @@ import { KALENDER } from './tage.js';
 const KONFIG = {
   titel: "Annkis digitaler Adventskalender",
   jahr: 2026,
-  passwort: "winter26", // Leer lassen "" um die Passwort-Sperre zu deaktivieren
-  testModus: true       // WICHTIG: Vor dem 1. Dezember auf false setzen!
+  passwort: "bruno", // Leer lassen "" um die Passwort-Sperre zu deaktivieren
+  testModus: false       // Umgeht daylock -> alle türchen immer freigeschaltet
 };
 
 const STORAGE_KEY = "advent_2026_state_v1";
